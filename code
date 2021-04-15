@@ -1,0 +1,18 @@
+#Raspberry Pi GPIO Pin Control Using Raspberry Pi, Python Flask #import RPi GPIO module and flask module for web control
+import RPi.GPIO as GPIO
+from flask import Flask, render_template, request
+app = Flask( name ) # initializing web application GPIO.setmode(GPIO.BCM) # to use RPi GPIO pin numbers
+GPIO.setwarnings(False) # Warnings set to false light = 13 GPIO pin 13 set as light
+GPIO.setup(light, GPIO.OUT) # light pin set as output GPIO.output(light, GPIO.LOW) # light pin set to low
+initial display of the web page @app.route(’/’)
+def index():
+return render_template(’index.html’) #Show the WEB PAGE	#fetching data from the web url for eg.
+http://192.168.0.100/<device @app.route(’/<deviceName>/<action>’) def do(deviceName, action):
+if deviceName == ’light’:
+relay = light
+# Check the action to be performed whether ON or OFF if action == ”on”:
+GPIO.output(relay, GPIO.HIGH) # Switch the device On print(’Light Turned ON’)
+if action == ”off”:
+GPIO.output(relay, GPIO.LOW) # Or OFF print(’Light Turned OFF’)
+return render_template(’index.html’) #Show the WEB PAGE if  name	== ” main ”:
+app.run(host=’192.168.0.108’,debug=True,port=8080) # host = RPi IPAdd, server port=8080
